@@ -10,3 +10,4 @@
 | — | — | Fix CORS with named policy (`SetIsOriginAllowed`) |
 | — | — | Add DB startup retry loop for MySQL readiness |
 | — | — | Add `HydrateFallback` component to root |
+| 2026-03-31 17:35 | - | Start work on BE auth, unit tests(NUnit), liniting, formatting |
