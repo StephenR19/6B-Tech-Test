@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SixBee.Api.DTOs;
+using SixBee.Api.Middleware;
 using SixBee.Api.Services;
 
 namespace SixBee.Api.Controllers;
@@ -41,12 +42,10 @@ public class AuthController : ControllerBase
     }
 
     [HttpGet("me")]
+    [Authorize]
     public IActionResult Me()
     {
         var email = HttpContext.Items["AdminEmail"] as string;
-        if (email == null)
-            return Unauthorized(new { message = "Not authenticated" });
-
         return Ok(new { email });
     }
 }
