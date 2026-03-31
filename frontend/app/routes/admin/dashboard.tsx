@@ -1,48 +1,10 @@
-import { useLoaderData, useFetcher, Link, redirect } from "react-router";
-import { api } from "~/lib/api";
-import type { Route } from "./+types/dashboard";
+import { useLoaderData, useFetcher, Link } from "react-router";
 
-interface Appointment {
-  id: number;
-  name: string;
-  appointmentDateTime: string;
-  description: string;
-  contactNumber: string;
-  emailAddress: string;
-  status: number;
-}
-
-export async function clientLoader({ request }: Route.ClientLoaderArgs) {
-  try {
-    const user = await api<{ email: string }>("/auth/me");
-    const appointments = await api<Appointment[]>("/appointments");
-    return { user, appointments };
-  } catch {
-    throw redirect("/login");
-  }
-}
-
-clientLoader.hydrate = true;
-
-export async function clientAction({ request }: Route.ClientActionArgs) {
-  const formData = await request.formData();
-  const intent = formData.get("intent");
-  const id = formData.get("id");
-
-  if (intent === "approve") {
-    await api(`/appointments/${id}/approve`, { method: "PATCH" });
-  } else if (intent === "delete") {
-    await api(`/appointments/${id}`, { method: "DELETE" });
-  } else if (intent === "logout") {
-    await api("/auth/logout", { method: "POST" });
-    return redirect("/login");
-  }
-
-  return { ok: true };
-}
+export { clientLoader } from "./dashboard.loader";
+export { clientAction } from "./dashboard.action";
 
 export default function Dashboard() {
-  const { user, appointments } = useLoaderData<typeof loader>();
+  const { user, appointments } = useLoaderData<typeof import("./dashboard.loader").clientLoader>();
   const fetcher = useFetcher();
 
   return (

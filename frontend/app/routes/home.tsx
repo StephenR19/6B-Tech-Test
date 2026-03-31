@@ -1,34 +1,9 @@
 import { useActionData, useNavigation, Form } from "react-router";
-import { api } from "~/lib/api";
-import type { Route } from "./+types/home";
 
-export async function clientAction({ request }: Route.ClientActionArgs) {
-  const formData = await request.formData();
-  const data = {
-    name: formData.get("name") as string,
-    appointmentDateTime: formData.get("appointmentDateTime") as string,
-    description: formData.get("description") as string,
-    contactNumber: formData.get("contactNumber") as string,
-    emailAddress: formData.get("emailAddress") as string,
-  };
-
-  try {
-    await api("/appointments", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
-    return { success: true };
-  } catch (error: any) {
-    if (error instanceof Response) {
-      const body = await error.json().catch(() => ({}));
-      return { success: false, errors: body };
-    }
-    return { success: false, errors: { message: "Failed to book appointment" } };
-  }
-}
+export { clientAction } from "./home.action";
 
 export default function Home() {
-  const actionData = useActionData<typeof action>();
+  const actionData = useActionData<typeof import("./home.action").clientAction>();
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 

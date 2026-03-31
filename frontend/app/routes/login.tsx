@@ -1,25 +1,9 @@
-import { useActionData, useNavigation, Form, redirect } from "react-router";
-import { api } from "~/lib/api";
-import type { Route } from "./+types/login";
+import { useActionData, useNavigation, Form } from "react-router";
 
-export async function clientAction({ request }: Route.ClientActionArgs) {
-  const formData = await request.formData();
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
-
-  try {
-    await api("/auth/login", {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-    });
-    return redirect("/admin");
-  } catch (error: any) {
-    return { error: "Invalid email or password" };
-  }
-}
+export { clientAction } from "./login.action";
 
 export default function Login() {
-  const actionData = useActionData<typeof action>();
+  const actionData = useActionData<typeof import("./login.action").clientAction>();
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 

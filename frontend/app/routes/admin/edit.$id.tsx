@@ -1,53 +1,11 @@
-import { useLoaderData, useActionData, useNavigation, Form, redirect, Link } from "react-router";
-import { api } from "~/lib/api";
-import type { Route } from "./+types/edit.$id";
+import { useLoaderData, useActionData, useNavigation, Form, Link } from "react-router";
 
-interface Appointment {
-  id: number;
-  name: string;
-  appointmentDateTime: string;
-  description: string;
-  contactNumber: string;
-  emailAddress: string;
-  status: number;
-}
-
-export async function clientLoader({ params }: Route.ClientLoaderArgs) {
-  try {
-    await api<{ email: string }>("/auth/me");
-    const appointment = await api<Appointment>(`/appointments/${params.id}`);
-    return { appointment };
-  } catch {
-    throw redirect("/login");
-  }
-}
-
-clientLoader.hydrate = true;
-
-export async function clientAction({ request, params }: Route.ClientActionArgs) {
-  const formData = await request.formData();
-  const data = {
-    name: formData.get("name") as string,
-    appointmentDateTime: formData.get("appointmentDateTime") as string,
-    description: formData.get("description") as string,
-    contactNumber: formData.get("contactNumber") as string,
-    emailAddress: formData.get("emailAddress") as string,
-  };
-
-  try {
-    await api(`/appointments/${params.id}`, {
-      method: "PUT",
-      body: JSON.stringify(data),
-    });
-    return redirect("/admin");
-  } catch (error: any) {
-    return { error: "Failed to update appointment" };
-  }
-}
+export { clientLoader } from "./edit.$id.loader";
+export { clientAction } from "./edit.$id.action";
 
 export default function EditAppointment() {
-  const { appointment } = useLoaderData<typeof loader>();
-  const actionData = useActionData<typeof action>();
+  const { appointment } = useLoaderData<typeof import("./edit.$id.loader").clientLoader>();
+  const actionData = useActionData<typeof import("./edit.$id.action").clientAction>();
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 
