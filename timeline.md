@@ -11,3 +11,4 @@
 | — | — | Add DB startup retry loop for MySQL readiness |
 | — | — | Add `HydrateFallback` component to root |
 | 2026-03-31 17:35 | - | Start work on BE auth, unit tests(NUnit), liniting, formatting |
+| 2026-03-31 18:28 | - | Fe loaders action split out. add FE and BE unit tests. Stopping work here|
