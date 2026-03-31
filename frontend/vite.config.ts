@@ -14,4 +14,9 @@ export default defineConfig({
       "~": path.resolve(__dirname, "app"),
     },
   },
+  test: {
+    globals: true,
+    environment: "jsdom",
+    setupFiles: ["./test/setup.ts"],
+  },
 });
