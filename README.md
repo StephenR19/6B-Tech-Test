@@ -75,3 +75,38 @@ Each row should include:
   - Easy to extend in future  
 
 - Aim to meet the core requirements rather than over engineering  
+
+## Architecture Decisions
+
+### React
+Widely adopted with a large ecosystem, extensive community support, and a strong developer talent pool for future maintenance.
+
+### React Router v7
+Provides built-in data loading (loaders/actions) that eliminates the need for a separate state management library. Supports both SPA and SSR modes, offering flexibility to scale. Includes TypeScript-first design and automatic type generation.
+
+### TypeScript
+Catches errors at compile time, provides better IDE support and autocompletion, and serves as self-documenting code for the codebase.
+
+### Vite
+Lightning-fast dev server with instant HMR and native ESM support, significantly improving developer experience over older bundlers.
+
+### Vitest + Testing Library
+Vitest is Vite-native with zero config and near-instant test execution. Testing Library encourages testing behavior over implementation details, leading to more maintainable tests.
+
+### Docker Compose
+Ensures consistent environments across dev and production. A single `docker-compose up` command spins up the full stack (MySQL + API + Frontend), simplifying onboarding.
+
+### GitHub Actions CI
+Parallel jobs for backend and frontend run format checks, linting, tests, and builds on every push/PR, catching issues early.
+
+### OpenAPI Type Generation
+Auto-generates TypeScript types from the backend Swagger spec (`npm run generate:types`), keeping frontend and backend types in sync automatically and eliminating manual type maintenance.
+
+### Co-located Tests
+Test files sit next to their source (`*.data.client.test.ts`), making them easy to find and maintain alongside the code they test.
+
+### SPA Architecture
+React Router is configured in SPA mode (`ssr: false`), keeping the frontend as a simple static bundle served by Node. SSR could be configured in the future.
+
+### Authentication
+For this project, a simple cookie-based auth approach was used for practicality. In a production healthcare environment, this would be replaced with an enterprise solution such as Identity Server, OKTA, or CIS2.
