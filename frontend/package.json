@@ -10,7 +10,8 @@
     "test:run": "vitest run",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "generate:types": "openapi-typescript http://localhost:5000/swagger/v1/swagger.json -o app/lib/api-types.d.ts"
   },
   "dependencies": {
     "@react-router/node": "^7.0.0",
@@ -34,6 +35,7 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
     "jsdom": "^29.0.1",
+    "openapi-typescript": "^7.13.0",
     "prettier": "^3.8.1",
     "tailwindcss": "^4.0.0",
     "typescript": "^5.0.0",

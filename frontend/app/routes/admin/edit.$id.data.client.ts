@@ -1,5 +1,7 @@
 import { api } from "~/lib/api";
-import type { Appointment } from "~/lib/types";
+import type { components } from "~/lib/api-types";
+
+type Appointment = components["schemas"]["Appointment"];
 
 export async function getMe() {
   return api<{ email: string }>("/auth/me");

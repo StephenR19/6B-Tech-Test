@@ -27,6 +27,11 @@ export default tseslint.config(
   },
   eslintConfigPrettier,
   {
-    ignores: ["build/", "node_modules/", ".react-router/"],
+    ignores: [
+      "build/",
+      "node_modules/",
+      ".react-router/",
+      "app/lib/api-types.d.ts",
+    ],
   },
 );
