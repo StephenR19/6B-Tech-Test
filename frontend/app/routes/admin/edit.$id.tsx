@@ -9,6 +9,12 @@ import {
 export { clientLoader } from "./edit.$id.loader";
 export { clientAction } from "./edit.$id.action";
 
+function getMinDatetimeLocal() {
+  const now = new Date();
+  now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+  return now.toISOString().slice(0, 16);
+}
+
 export default function EditAppointment() {
   const { appointment } =
     useLoaderData<typeof import("./edit.$id.loader").clientLoader>();
@@ -81,9 +87,15 @@ export default function EditAppointment() {
               name="appointmentDateTime"
               type="datetime-local"
               required
+              min={getMinDatetimeLocal()}
               defaultValue={formatDateForInput(appointment.appointmentDateTime)}
               className="mt-1 block w-full rounded-md border border-border px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
             />
+            {actionData?.error && actionData.error.includes("future") && (
+              <p className="mt-1 text-sm text-red-600">
+                Appointment must be in the future
+              </p>
+            )}
           </div>
 
           <div>
@@ -115,9 +127,16 @@ export default function EditAppointment() {
               name="contactNumber"
               type="tel"
               required
+              pattern="\d*"
+              inputMode="numeric"
               defaultValue={appointment.contactNumber}
               className="mt-1 block w-full rounded-md border border-border px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
             />
+            {actionData?.error && actionData.error.includes("digits") && (
+              <p className="mt-1 text-sm text-red-600">
+                Contact number must contain only digits
+              </p>
+            )}
           </div>
 
           <div>

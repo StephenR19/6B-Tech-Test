@@ -11,6 +11,20 @@ export async function clientAction({ request }: Route.ClientActionArgs) {
     emailAddress: formData.get("emailAddress") as string,
   };
 
+  const errors: Record<string, string> = {};
+
+  if (new Date(data.appointmentDateTime) <= new Date()) {
+    errors.appointmentDateTime = "Appointment must be in the future";
+  }
+
+  if (!/^\d+$/.test(data.contactNumber)) {
+    errors.contactNumber = "Contact number must contain only digits";
+  }
+
+  if (Object.keys(errors).length > 0) {
+    return { success: false, errors };
+  }
+
   try {
     await createAppointment(data);
     return { success: true };

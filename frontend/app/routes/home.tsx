@@ -2,6 +2,12 @@ import { useActionData, useNavigation, Form } from "react-router";
 
 export { clientAction } from "./home.action";
 
+function getMinDatetimeLocal() {
+  const now = new Date();
+  now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+  return now.toISOString().slice(0, 16);
+}
+
 export default function Home() {
   const actionData =
     useActionData<typeof import("./home.action").clientAction>();
@@ -78,8 +84,14 @@ export default function Home() {
               name="appointmentDateTime"
               type="datetime-local"
               required
+              min={getMinDatetimeLocal()}
               className="mt-1 block w-full rounded-md border border-border px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
             />
+            {actionData?.errors?.appointmentDateTime && (
+              <p className="mt-1 text-sm text-red-600">
+                {actionData.errors.appointmentDateTime}
+              </p>
+            )}
           </div>
 
           <div>
@@ -110,8 +122,15 @@ export default function Home() {
               name="contactNumber"
               type="tel"
               required
+              pattern="\d*"
+              inputMode="numeric"
               className="mt-1 block w-full rounded-md border border-border px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
             />
+            {actionData?.errors?.contactNumber && (
+              <p className="mt-1 text-sm text-red-600">
+                {actionData.errors.contactNumber}
+              </p>
+            )}
           </div>
 
           <div>
