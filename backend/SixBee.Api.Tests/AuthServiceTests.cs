@@ -11,8 +11,8 @@ namespace SixBee.Api.Tests;
 [TestFixture]
 public class AuthServiceTests
 {
-    private AppDbContext _context;
-    private AuthService _authService;
+    private AppDbContext _context = null!;
+    private AuthService _authService = null!;
 
     [SetUp]
     public void SetUp()

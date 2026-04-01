@@ -8,7 +8,7 @@ namespace SixBee.Api.Tests;
 [TestFixture]
 public class DbSeederTests
 {
-    private AppDbContext _context;
+    private AppDbContext _context = null!;
 
     [SetUp]
     public void SetUp()

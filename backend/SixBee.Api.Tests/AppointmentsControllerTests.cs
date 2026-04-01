@@ -11,8 +11,8 @@ namespace SixBee.Api.Tests;
 [TestFixture]
 public class AppointmentsControllerTests
 {
-    private AppDbContext _context;
-    private AppointmentsController _controller;
+    private AppDbContext _context = null!;
+    private AppointmentsController _controller = null!;
 
     [SetUp]
     public void SetUp()
