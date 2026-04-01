@@ -1,25 +1,10 @@
-import { useActionData, useNavigation, Form, redirect } from "react-router";
-import { api } from "~/lib/api";
-import type { Route } from "./+types/login";
+import { useActionData, useNavigation, Form } from "react-router";
 
-export async function clientAction({ request }: Route.ClientActionArgs) {
-  const formData = await request.formData();
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
-
-  try {
-    await api("/auth/login", {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-    });
-    return redirect("/admin");
-  } catch (error: any) {
-    return { error: "Invalid email or password" };
-  }
-}
+export { clientAction } from "./login.action";
 
 export default function Login() {
-  const actionData = useActionData<typeof action>();
+  const actionData =
+    useActionData<typeof import("./login.action").clientAction>();
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 
@@ -31,7 +16,10 @@ export default function Login() {
           <p className="mt-2 text-gray-600">SixBee HealthTech</p>
         </div>
 
-        <Form method="post" className="space-y-5 rounded-lg bg-white p-8 shadow-md">
+        <Form
+          method="post"
+          className="space-y-5 rounded-lg bg-white p-8 shadow-md"
+        >
           {actionData?.error && (
             <div className="rounded-md bg-red-50 p-3 text-sm text-red-700">
               {actionData.error}
@@ -39,7 +27,10 @@ export default function Login() {
           )}
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
               Email Address
             </label>
             <input
@@ -52,7 +43,10 @@ export default function Login() {
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
               Password
             </label>
             <input

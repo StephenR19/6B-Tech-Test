@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using SixBee.Api.Data;
 using SixBee.Api.DTOs;
+using SixBee.Api.Middleware;
 using SixBee.Api.Models;
 
 namespace SixBee.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class AppointmentsController : ControllerBase
 {
     private readonly AppDbContext _db;
@@ -37,6 +39,7 @@ public class AppointmentsController : ControllerBase
     }
 
     [HttpPost]
+    [AllowAnonymous]
     public IActionResult Create([FromBody] CreateAppointmentDto dto)
     {
         if (!ModelState.IsValid)

@@ -6,6 +6,7 @@ backend/**/publish/
 # Node
 frontend/node_modules/
 frontend/build/
+frontend/.react-router/
 
 # Environment
 .env

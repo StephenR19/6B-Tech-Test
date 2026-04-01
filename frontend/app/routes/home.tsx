@@ -1,34 +1,16 @@
-import { useActionData, useNavigation, Form } from "react-router";
-import { api } from "~/lib/api";
-import type { Route } from "./+types/home";
+import { useActionData, useNavigation, Form, Link } from "react-router";
 
-export async function clientAction({ request }: Route.ClientActionArgs) {
-  const formData = await request.formData();
-  const data = {
-    name: formData.get("name") as string,
-    appointmentDateTime: formData.get("appointmentDateTime") as string,
-    description: formData.get("description") as string,
-    contactNumber: formData.get("contactNumber") as string,
-    emailAddress: formData.get("emailAddress") as string,
-  };
+export { clientAction } from "./home.action";
 
-  try {
-    await api("/appointments", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
-    return { success: true };
-  } catch (error: any) {
-    if (error instanceof Response) {
-      const body = await error.json().catch(() => ({}));
-      return { success: false, errors: body };
-    }
-    return { success: false, errors: { message: "Failed to book appointment" } };
-  }
+function getMinDatetimeLocal() {
+  const now = new Date();
+  now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+  return now.toISOString().slice(0, 16);
 }
 
 export default function Home() {
-  const actionData = useActionData<typeof action>();
+  const actionData =
+    useActionData<typeof import("./home.action").clientAction>();
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 
@@ -37,7 +19,9 @@ export default function Home() {
       <div className="flex min-h-screen items-center justify-center bg-surface px-4">
         <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md text-center">
           <div className="mb-4 text-5xl">✓</div>
-          <h1 className="text-2xl font-bold text-gray-900">Appointment Booked</h1>
+          <h1 className="text-2xl font-bold text-gray-900">
+            Appointment Booked
+          </h1>
           <p className="mt-2 text-gray-600">
             We will be in touch to confirm your appointment.
           </p>
@@ -56,11 +40,22 @@ export default function Home() {
     <div className="flex min-h-screen items-center justify-center bg-surface px-4 py-12">
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-gray-900">Book an Appointment</h1>
+          <h1 className="text-3xl font-bold text-gray-900">
+            Book an Appointment
+          </h1>
           <p className="mt-2 text-gray-600">SixBee HealthTech</p>
+          <Link
+            to="/login"
+            className="mt-4 inline-block rounded-md border border-border px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+          >
+            Admin Login
+          </Link>
         </div>
 
-        <Form method="post" className="space-y-5 rounded-lg bg-white p-8 shadow-md">
+        <Form
+          method="post"
+          className="space-y-5 rounded-lg bg-white p-8 shadow-md"
+        >
           {actionData?.errors?.message && (
             <div className="rounded-md bg-red-50 p-3 text-sm text-red-700">
               {actionData.errors.message}
@@ -68,7 +63,10 @@ export default function Home() {
           )}
 
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-gray-700"
+            >
               Name
             </label>
             <input
@@ -81,7 +79,10 @@ export default function Home() {
           </div>
 
           <div>
-            <label htmlFor="appointmentDateTime" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="appointmentDateTime"
+              className="block text-sm font-medium text-gray-700"
+            >
               Appointment Date & Time
             </label>
             <input
@@ -89,12 +90,21 @@ export default function Home() {
               name="appointmentDateTime"
               type="datetime-local"
               required
+              min={getMinDatetimeLocal()}
               className="mt-1 block w-full rounded-md border border-border px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
             />
+            {actionData?.errors?.appointmentDateTime && (
+              <p className="mt-1 text-sm text-red-600">
+                {actionData.errors.appointmentDateTime}
+              </p>
+            )}
           </div>
 
           <div>
-            <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="description"
+              className="block text-sm font-medium text-gray-700"
+            >
               Description
             </label>
             <textarea
@@ -107,7 +117,10 @@ export default function Home() {
           </div>
 
           <div>
-            <label htmlFor="contactNumber" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="contactNumber"
+              className="block text-sm font-medium text-gray-700"
+            >
               Contact Number
             </label>
             <input
@@ -115,12 +128,22 @@ export default function Home() {
               name="contactNumber"
               type="tel"
               required
+              pattern="\d*"
+              inputMode="numeric"
               className="mt-1 block w-full rounded-md border border-border px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
             />
+            {actionData?.errors?.contactNumber && (
+              <p className="mt-1 text-sm text-red-600">
+                {actionData.errors.contactNumber}
+              </p>
+            )}
           </div>
 
           <div>
-            <label htmlFor="emailAddress" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="emailAddress"
+              className="block text-sm font-medium text-gray-700"
+            >
               Email Address
             </label>
             <input
