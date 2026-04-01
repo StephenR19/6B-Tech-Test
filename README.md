@@ -76,6 +76,11 @@ Each row should include:
 
 - Aim to meet the core requirements rather than over engineering  
 
+---
+
+## Developer Additions
+*The following sections were added by the developer and are not part of the original brief.*
+
 ## Architecture Decisions
 
 ### React

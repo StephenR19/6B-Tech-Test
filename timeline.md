@@ -13,3 +13,4 @@
 | 2026-03-31 17:35 | - | Start work on BE auth, unit tests(NUnit), liniting, formatting |
 | 2026-03-31 18:28 | - | Fe loaders action split out. add FE and BE unit tests. Stopping work here|
 | 2026-04-01 23:15  | - | Start work on linting, formatting and fixes|
+| 2026-04-02 00:35 | - | added linting, formatting, ci, openapi and updated readme. work finished |
