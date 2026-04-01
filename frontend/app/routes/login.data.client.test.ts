@@ -21,7 +21,10 @@ describe("login.data.client", () => {
 
     expect(mockedApi).toHaveBeenCalledWith("/auth/login", {
       method: "POST",
-      body: JSON.stringify({ email: "admin@test.com", password: "password123" }),
+      body: JSON.stringify({
+        email: "admin@test.com",
+        password: "password123",
+      }),
     });
   });
 
@@ -29,7 +32,7 @@ describe("login.data.client", () => {
     mockedApi.mockRejectedValueOnce(new Error("Unauthorized"));
 
     await expect(
-      login({ email: "wrong@test.com", password: "wrong" })
+      login({ email: "wrong@test.com", password: "wrong" }),
     ).rejects.toThrow("Unauthorized");
   });
 });

@@ -43,7 +43,7 @@ describe("home.data.client", () => {
         description: "Checkup",
         contactNumber: "07700900000",
         emailAddress: "john@test.com",
-      })
+      }),
     ).rejects.toThrow("Network error");
   });
 });

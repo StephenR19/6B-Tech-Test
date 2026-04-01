@@ -1,5 +1,9 @@
 import { redirect } from "react-router";
-import { approveAppointment, deleteAppointment, logout } from "./dashboard.data.client";
+import {
+  approveAppointment,
+  deleteAppointment,
+  logout,
+} from "./dashboard.data.client";
 import type { Route } from "./+types/dashboard";
 
 export async function clientAction({ request }: Route.ClientActionArgs) {

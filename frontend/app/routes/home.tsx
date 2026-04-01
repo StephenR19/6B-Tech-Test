@@ -3,7 +3,8 @@ import { useActionData, useNavigation, Form } from "react-router";
 export { clientAction } from "./home.action";
 
 export default function Home() {
-  const actionData = useActionData<typeof import("./home.action").clientAction>();
+  const actionData =
+    useActionData<typeof import("./home.action").clientAction>();
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 
@@ -12,7 +13,9 @@ export default function Home() {
       <div className="flex min-h-screen items-center justify-center bg-surface px-4">
         <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md text-center">
           <div className="mb-4 text-5xl">✓</div>
-          <h1 className="text-2xl font-bold text-gray-900">Appointment Booked</h1>
+          <h1 className="text-2xl font-bold text-gray-900">
+            Appointment Booked
+          </h1>
           <p className="mt-2 text-gray-600">
             We will be in touch to confirm your appointment.
           </p>
@@ -31,11 +34,16 @@ export default function Home() {
     <div className="flex min-h-screen items-center justify-center bg-surface px-4 py-12">
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-gray-900">Book an Appointment</h1>
+          <h1 className="text-3xl font-bold text-gray-900">
+            Book an Appointment
+          </h1>
           <p className="mt-2 text-gray-600">SixBee HealthTech</p>
         </div>
 
-        <Form method="post" className="space-y-5 rounded-lg bg-white p-8 shadow-md">
+        <Form
+          method="post"
+          className="space-y-5 rounded-lg bg-white p-8 shadow-md"
+        >
           {actionData?.errors?.message && (
             <div className="rounded-md bg-red-50 p-3 text-sm text-red-700">
               {actionData.errors.message}
@@ -43,7 +51,10 @@ export default function Home() {
           )}
 
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-gray-700"
+            >
               Name
             </label>
             <input
@@ -56,7 +67,10 @@ export default function Home() {
           </div>
 
           <div>
-            <label htmlFor="appointmentDateTime" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="appointmentDateTime"
+              className="block text-sm font-medium text-gray-700"
+            >
               Appointment Date & Time
             </label>
             <input
@@ -69,7 +83,10 @@ export default function Home() {
           </div>
 
           <div>
-            <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="description"
+              className="block text-sm font-medium text-gray-700"
+            >
               Description
             </label>
             <textarea
@@ -82,7 +99,10 @@ export default function Home() {
           </div>
 
           <div>
-            <label htmlFor="contactNumber" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="contactNumber"
+              className="block text-sm font-medium text-gray-700"
+            >
               Contact Number
             </label>
             <input
@@ -95,7 +115,10 @@ export default function Home() {
           </div>
 
           <div>
-            <label htmlFor="emailAddress" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="emailAddress"
+              className="block text-sm font-medium text-gray-700"
+            >
               Email Address
             </label>
             <input

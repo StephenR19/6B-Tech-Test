@@ -5,7 +5,11 @@ vi.mock("~/lib/api", () => ({
 }));
 
 import { api } from "~/lib/api";
-import { getMe, getAppointment, updateAppointment } from "./edit.$id.data.client";
+import {
+  getMe,
+  getAppointment,
+  updateAppointment,
+} from "./edit.$id.data.client";
 
 const mockedApi = vi.mocked(api);
 

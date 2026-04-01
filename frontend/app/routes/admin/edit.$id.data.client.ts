@@ -17,7 +17,7 @@ export async function updateAppointment(
     description: string;
     contactNumber: string;
     emailAddress: string;
-  }
+  },
 ) {
   return api(`/appointments/${id}`, {
     method: "PUT",

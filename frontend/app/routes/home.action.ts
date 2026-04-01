@@ -19,6 +19,9 @@ export async function clientAction({ request }: Route.ClientActionArgs) {
       const body = await error.json().catch(() => ({}));
       return { success: false, errors: body };
     }
-    return { success: false, errors: { message: "Failed to book appointment" } };
+    return {
+      success: false,
+      errors: { message: "Failed to book appointment" },
+    };
   }
 }
