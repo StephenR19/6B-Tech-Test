@@ -1,6 +1,7 @@
 using FluentAssertions;
 using SixBee.Api.Data;
 using SixBee.Api.Models;
+using NUnit.Framework;
 
 namespace SixBee.Api.Tests;
 

@@ -6,6 +6,8 @@ using SixBee.Api.Data;
 using SixBee.Api.DTOs;
 using SixBee.Api.Models;
 using SixBee.Api.Services;
+using NUnit.Framework;
+
 
 namespace SixBee.Api.Tests;
 
@@ -52,7 +54,8 @@ public class AuthControllerTests
         var result = _controller.Login(dto) as OkObjectResult;
 
         result.Should().NotBeNull();
-        _controller.Response.Cookies.ContainsKey("sixbee_auth").Should().BeTrue();
+        var setCookieHeader = _controller.Response.Headers["Set-Cookie"].ToString();
+        setCookieHeader.Should().Contain("sixbee_auth=");
     }
 
     [Test]

@@ -1,5 +1,6 @@
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
+using NUnit.Framework;
 using SixBee.Api.Controllers;
 using SixBee.Api.Data;
 using SixBee.Api.DTOs;

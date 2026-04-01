@@ -46,6 +46,8 @@ public class AuthController : ControllerBase
     public IActionResult Me()
     {
         var email = HttpContext.Items["AdminEmail"] as string;
+        if (email == null)
+            return Unauthorized(new { message = "Not authenticated" });
         return Ok(new { email });
     }
 }

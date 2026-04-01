@@ -3,6 +3,8 @@ using SixBee.Api.Data;
 using SixBee.Api.DTOs;
 using SixBee.Api.Models;
 using SixBee.Api.Services;
+using NUnit.Framework;
+
 
 namespace SixBee.Api.Tests;
 
