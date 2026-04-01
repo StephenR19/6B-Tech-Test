@@ -109,4 +109,32 @@ Test files sit next to their source (`*.data.client.test.ts`), making them easy 
 React Router is configured in SPA mode (`ssr: false`), keeping the frontend as a simple static bundle served by Node. SSR could be configured in the future.
 
 ### Authentication
-For this project, a simple cookie-based auth approach was used for practicality. In a production healthcare environment, this would be replaced with an enterprise solution such as Identity Server, OKTA, or CIS2.
+For this project, a simple cookie-based auth approach was used for practicality. In a production healthcare environment, this would be replaced with an enterprise identity provider. Keycloak could serve as an identity broker, federating authentication to providers such as OKTA or NHS CIS2.
+
+### Styling
+Tailwind CSS was used as desired. The styling is basic and functional — in a production healthcare application, the UI should follow GDS (Government Digital Service) guidelines for accessibility, ensuring proper contrast ratios, keyboard navigation, focus management, and accessible form inputs with clear labels and error messages.
+
+## Considerations & Future Improvements
+
+### Approved Appointment Restrictions
+Once an appointment is approved, certain fields or actions should be restricted to prevent accidental modifications. For example, editing an approved appointment could require re-approval, or edits could be blocked entirely.
+
+### Soft Delete
+Rather than permanently removing appointments, a soft delete approach (e.g. an `IsDeleted` flag or `DeletedAt` timestamp) should be used. This preserves data integrity and allows deleted records to be recovered if needed.
+
+### Audit Trail
+All changes to appointments should be logged, including who made the change, what was changed, and when. This is critical in a healthcare context for accountability and compliance.
+
+### Performance
+
+#### Server-Side Rendering (SSR)
+React Router is currently configured in SPA mode (`ssr: false`). Enabling SSR would improve initial load times and SEO by serving pre-rendered HTML on the first request, with client-side hydration taking over after.
+
+#### Database Optimisation
+As the dataset grows, query performance should be monitored. Examining SQL query plans would reveal whether additional indexes are needed on frequently queried columns (e.g. `AppointmentDate`, `Status`).
+
+#### PostgreSQL
+While MySQL meets the requirements, PostgreSQL offers advantages for healthcare workloads such as stronger ACID compliance, better support for complex queries, and native JSON handling.
+
+#### Message Bus
+For a larger-scale deployment, a message bus (e.g. RabbitMQ, Azure Service Bus) could be introduced to decouple services and handle asynchronous operations such as appointment notifications, confirmation emails, or audit logging.

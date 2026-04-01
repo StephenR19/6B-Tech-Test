@@ -1,4 +1,4 @@
-import { useActionData, useNavigation, Form } from "react-router";
+import { useActionData, useNavigation, Form, Link } from "react-router";
 
 export { clientAction } from "./home.action";
 
@@ -44,6 +44,12 @@ export default function Home() {
             Book an Appointment
           </h1>
           <p className="mt-2 text-gray-600">SixBee HealthTech</p>
+          <Link
+            to="/login"
+            className="mt-4 inline-block rounded-md border border-border px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+          >
+            Admin Login
+          </Link>
         </div>
 
         <Form
