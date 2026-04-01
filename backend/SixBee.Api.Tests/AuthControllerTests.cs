@@ -1,12 +1,12 @@
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NUnit.Framework;
 using SixBee.Api.Controllers;
 using SixBee.Api.Data;
 using SixBee.Api.DTOs;
 using SixBee.Api.Models;
 using SixBee.Api.Services;
-using NUnit.Framework;
 
 
 namespace SixBee.Api.Tests;
